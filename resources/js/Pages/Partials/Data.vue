@@ -1,13 +1,40 @@
 <script setup>
 import Chart from '@/Components/Chart.vue'
+
+const charts = [
+   {
+      id: 'socChart',
+      name: 'State of Charge',
+   },
+   {
+      id: 'vsChart',
+      name: 'Vertical Speed',
+   },
+   {
+      id: 'acclyChart',
+      name: 'Acceleration Y',
+   },
+   {
+      id: 'vibaChart',
+      name: 'Vibration A',
+   },
+   {
+      id: 'vibbChart',
+      name: 'Vibration B',
+   },
+]
 </script>
 
 <template>
-   <section class="w-full md:w-2/3">
+   <section class="w-full">
       <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 p-4">
-         <div v-for="n in 6" :key="n" className="card shadow-lg p-2">
+         <div
+            v-for="{ id, name } in charts"
+            :key="id"
+            className="card shadow-lg p-2 bg-slate-50"
+         >
             <figure>
-               <Chart :id="`chart${n}`" />
+               <Chart :id="id" :name="name" />
             </figure>
          </div>
       </div>

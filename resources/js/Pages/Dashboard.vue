@@ -10,7 +10,18 @@ import Data from '@/Pages/Partials/Data.vue'
 
    <AuthenticatedLayout>
       <div class="flex flex-col-reverse md:flex-row grow">
-         <Data />
+         <section class="w-2/3">
+            <!--Breadcrumbs-->
+            <div className="text-sm breadcrumbs ml-4 mt-4 w-fit flex flex-col">
+               <ul>
+                  <li><a>Home</a></li>
+                  <li>QTR XY123Z</li>
+               </ul>
+            </div>
+            <!--Data-->
+            <Data />
+         </section>
+         <!--Map-->
          <Map />
       </div>
    </AuthenticatedLayout>

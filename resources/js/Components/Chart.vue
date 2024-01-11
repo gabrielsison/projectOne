@@ -2,7 +2,7 @@
 import ApexCharts from 'apexcharts'
 import { onMounted } from 'vue'
 
-const { id } = defineProps({ id: String })
+const { id, name } = defineProps({ id: String, name: String })
 
 var options = {
    series: [
@@ -52,7 +52,7 @@ var options = {
       },
    },
    title: {
-      text: 'State of Charge',
+      text: name,
       align: 'left',
       style: {
          fontSize: '16px',
@@ -79,7 +79,7 @@ var options = {
 
 function generateChartData() {
    // Generating sample data, you can replace this with your own data logic
-   const numberOfDataPoints = Math.floor(Math.random() * 100)
+   const numberOfDataPoints = Math.floor(Math.random() * 500)
    const data = []
 
    for (let i = 1; i <= numberOfDataPoints; i++) {

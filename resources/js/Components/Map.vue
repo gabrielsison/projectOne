@@ -1,11 +1,21 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+
 import 'leaflet/dist/leaflet.css'
 import Leaflet from 'leaflet'
-import { ref, onMounted } from 'vue'
+import 'leaflet-rotatedmarker' //here import the plugin
+
+import plane from '../../images/plane.png'
 
 const mapElement = ref(null)
 const L = Leaflet
+const icon = L.icon({
+   iconUrl: plane,
+   iconSize: [60, 60], // size of the icon
+   iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+})
 
+let direction = 0
 let currentCoordinates = { latitude: 51.509865, longitude: -0.118092 } // Initial coordinates for London
 let coordinates = []
 
@@ -23,9 +33,9 @@ function generateNextCoordinate(currentCoordinates, speed, direction) {
 }
 
 function simulateGPSTracking(fg, map) {
-   const speed = 0.05 // Adjust speed as needed
-   const direction = Math.random() * 360 // Random direction in degrees
-   // Function to be called every minute
+   const speed = 0.05
+   direction = Math.random() * 360
+
    const nextCoordinates = generateNextCoordinate(
       currentCoordinates,
       speed,
@@ -40,11 +50,12 @@ function simulateGPSTracking(fg, map) {
    fg.clearLayers()
    // Update current coordinates for the next iteration
    currentCoordinates = nextCoordinates
+   console.log(direction)
 
-   new L.marker([
-      currentCoordinates.latitude,
-      currentCoordinates.longitude,
-   ]).addTo(fg)
+   new L.marker([currentCoordinates.latitude, currentCoordinates.longitude], {
+      icon: icon,
+      rotationAngle: direction,
+   }).addTo(fg)
 
    map.setView([currentCoordinates.latitude, currentCoordinates.longitude])
 }
@@ -69,7 +80,7 @@ onMounted(() => {
 
    L.polyline(polylinePoints).addTo(map)
 
-   setInterval(() => simulateGPSTracking(fg, map), 30000)
+   setInterval(() => simulateGPSTracking(fg, map), 10000)
 })
 </script>
 
