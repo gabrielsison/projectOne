@@ -33,7 +33,7 @@ function generateNextCoordinate(currentCoordinates, speed, direction) {
 }
 
 function simulateGPSTracking(fg, map) {
-   const speed = 0.05
+   const speed = 1
    direction = Math.random() * 360
 
    const nextCoordinates = generateNextCoordinate(
@@ -41,16 +41,10 @@ function simulateGPSTracking(fg, map) {
       speed,
       direction,
    )
-   console.log(
-      `GPS Coordinates: Latitude ${nextCoordinates.latitude.toFixed(
-         6,
-      )}, Longitude ${nextCoordinates.longitude.toFixed(6)}`,
-   )
 
    fg.clearLayers()
-   // Update current coordinates for the next iteration
+
    currentCoordinates = nextCoordinates
-   console.log(direction)
 
    new L.marker([currentCoordinates.latitude, currentCoordinates.longitude], {
       icon: icon,
