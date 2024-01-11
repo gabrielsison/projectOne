@@ -52,7 +52,10 @@ function simulateGPSTracking(fg, map) {
       )
       const { data } = await response.json()
 
-      console.log(data)
+      console.log({
+         latitude: data[0].live.latitude,
+         longitude: data[0].live.longitude,
+      })
    }
 
    nextCoordinates()
@@ -98,7 +101,7 @@ onMounted(() => {
 
    L.polyline(polylinePoints).addTo(map)
 
-   setInterval(() => simulateGPSTracking(fg, map), 60000)
+   setInterval(() => simulateGPSTracking(fg, map), 5000)
 })
 </script>
 
