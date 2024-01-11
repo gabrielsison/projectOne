@@ -86,5 +86,5 @@ onMounted(() => {
 </script>
 
 <template>
-   <div id="map" ref="mapElement" class="grow min-h-80"></div>
+   <div id="map" ref="mapElement" class="grow min-h-80 z-0"></div>
 </template>

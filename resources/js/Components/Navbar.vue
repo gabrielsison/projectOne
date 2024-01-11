@@ -1,3 +1,7 @@
+<script setup>
+import { Link } from '@inertiajs/vue3'
+</script>
+
 <template>
    <div className="navbar bg-base-100">
       <div className="flex-1"></div>
@@ -24,16 +28,23 @@
             </div>
             <ul
                tabIndex="{0}"
-               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+               className="mt-3 z-[2] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
                <li>
-                  <a className="justify-between">
+                  <Link
+                     :href="route('profile.edit')"
+                     className="justify-between"
+                  >
                      Profile
                      <span className="badge">New</span>
-                  </a>
+                  </Link>
                </li>
-               <li><a>Settings</a></li>
-               <li><a>Logout</a></li>
+               <li><Link :href="route('profile.edit')">Settings</Link></li>
+               <li>
+                  <Link method="post" as="button" :href="route('logout')"
+                     >Logout</Link
+                  >
+               </li>
             </ul>
          </div>
       </div>

@@ -32,7 +32,7 @@ Route::get('/dashboard', function () {
    ->name('dashboard');
 
 Route::get('/plane/{id}', function ($id) {
-   return Inertia::render('Plane/View');
+   return Inertia::render('Plane/View', ['name' => 'QTR ZY345X']);
 })
    ->middleware(['auth', 'verified'])
    ->name('plane.view');

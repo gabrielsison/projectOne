@@ -4,7 +4,7 @@ import Navbar from '@/Components/Navbar.vue'
 
 <template>
    <div>
-      <div class="min-h-screen bg-gray-100 flex flex-col">
+      <div class="min-h-screen bg-gray-100">
          <Navbar />
          <!-- Page Content -->
          <main class="grow flex flex-col">

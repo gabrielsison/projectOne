@@ -3,7 +3,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
 
 const lastUpdated = new Date().toLocaleString()
-console.log(first)
 </script>
 
 <template>
