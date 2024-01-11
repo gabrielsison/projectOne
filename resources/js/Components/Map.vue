@@ -1,7 +1,3 @@
-<template>
-   <div id="map" ref="mapElement" class="h-[500px]"></div>
-</template>
-
 <script setup>
 import 'leaflet/dist/leaflet.css'
 import Leaflet from 'leaflet'
@@ -13,12 +9,6 @@ const L = Leaflet
 let currentCoordinates = { latitude: 51.509865, longitude: -0.118092 } // Initial coordinates for London
 let coordinates = []
 
-function generateRandomOffset() {
-   // Generate a random offset within a small range
-   const offset = (Math.random() - 0.5) / 10 // Adjust the range as needed
-   return offset
-}
-
 function generateNextCoordinate(currentCoordinates, speed, direction) {
    const earthRadius = 6371 // Earth radius in kilometers
    const angularDistance = (speed / earthRadius) * (180 / Math.PI) // Convert speed to angular distance
@@ -28,6 +18,7 @@ function generateNextCoordinate(currentCoordinates, speed, direction) {
    const newLongitude =
       currentCoordinates.longitude +
       angularDistance * Math.sin((direction * Math.PI) / 180)
+
    return { latitude: newLatitude, longitude: newLongitude }
 }
 
@@ -81,3 +72,7 @@ onMounted(() => {
    setInterval(() => simulateGPSTracking(fg, map), 30000)
 })
 </script>
+
+<template>
+   <div id="map" ref="mapElement" class="grow min-h-80"></div>
+</template>

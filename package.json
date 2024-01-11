@@ -21,6 +21,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "apexcharts": "^3.45.1",
         "leaflet": "^1.9.4"
     }
 }
