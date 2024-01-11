@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 /*
@@ -31,8 +32,8 @@ Route::get('/dashboard', function () {
    ->middleware(['auth', 'verified'])
    ->name('dashboard');
 
-Route::get('/plane/{id}', function ($id) {
-   return Inertia::render('Plane/View', ['name' => 'QTR ZY345X']);
+Route::get('/plane/{id}', function (Request $request, $id) {
+   return Inertia::render('Plane/View', ['plane' => $request->plane]);
 })
    ->middleware(['auth', 'verified'])
    ->name('plane.view');

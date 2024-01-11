@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import Leaflet from 'leaflet'
 import 'leaflet-rotatedmarker' //here import the plugin
 
-import plane from '../../images/plane.png'
+const { plane, flight } = defineProps(['plane', 'flight'])
 
 const mapElement = ref(null)
 const L = Leaflet
@@ -17,45 +17,62 @@ const icon = L.icon({
 })
 
 let direction = 0
-let currentCoordinates = { latitude: 51.509865, longitude: -0.118092 } // Initial coordinates for London
+let currentCoordinates = {
+   latitude: parseInt(plane.latitude),
+   longitude: parseInt(plane.longitude),
+} // Initial coordinates for London
 let coordinates = []
 
-function generateNextCoordinate(currentCoordinates, speed, direction) {
-   const earthRadius = 6371 // Earth radius in kilometers
-   const angularDistance = (speed / earthRadius) * (180 / Math.PI) // Convert speed to angular distance
-   const newLatitude =
-      currentCoordinates.latitude +
-      angularDistance * Math.cos((direction * Math.PI) / 180)
-   const newLongitude =
-      currentCoordinates.longitude +
-      angularDistance * Math.sin((direction * Math.PI) / 180)
+// function generateNextCoordinate(currentCoordinates, speed, direction) {
+//    const earthRadius = 6371 // Earth radius in kilometers
+//    const angularDistance = (speed / earthRadius) * (180 / Math.PI) // Convert speed to angular distance
+//    const newLatitude =
+//       currentCoordinates.latitude +
+//       angularDistance * Math.cos((direction * Math.PI) / 180)
+//    const newLongitude =
+//       currentCoordinates.longitude +
+//       angularDistance * Math.sin((direction * Math.PI) / 180)
 
-   return { latitude: newLatitude, longitude: newLongitude }
-}
+//    return { latitude: newLatitude, longitude: newLongitude }
+// }
 
 function simulateGPSTracking(fg, map) {
-   const speed = 1
-   direction = Math.random() * 360
+   //    const speed = parseInt(plane.speed_horizontal)
+   //    direction = parseInt(plane.direction)
 
-   const nextCoordinates = generateNextCoordinate(
-      currentCoordinates,
-      speed,
-      direction,
-   )
+   //    const nextCoordinates = generateNextCoordinate(
+   //       currentCoordinates,
+   //       speed,
+   //       direction,
+   //    )
 
-   fg.clearLayers()
+   const nextCoordinates = async () => {
+      const response = await fetch(
+         `http://api.aviationstack.com/v1/flights?access_key=83133bf365d382fd5ed7e21d3e3af60f&flight_number=${flight.number}&flight_iata=${flight.iata}`,
+      )
+      const { data } = await response.json()
 
-   currentCoordinates = nextCoordinates
+      console.log(data)
+   }
 
-   let _marker = new L.marker(
-      [currentCoordinates.latitude, currentCoordinates.longitude],
-      {
-         icon: icon,
-         rotationAngle: direction,
-      },
-   ).addTo(fg)
+   nextCoordinates()
 
-   map.flyTo(_marker.getLatLng(), 12)
+   //    fg.clearLayers()
+
+   //    currentCoordinates = {
+   //       latitude: parseInt(plane.latitude),
+   //       longitude: parseInt(plane.longitude),
+   //    }
+
+   //    let _marker = new L.marker(
+   //       [currentCoordinates.latitude, currentCoordinates.longitude],
+   //       {
+   //          icon: icon,
+   //          rotationAngle: direction,
+   //       },
+   //    ).addTo(fg)
+
+   //    map.flyTo(_marker.getLatLng(), 12)
 }
 
 onMounted(() => {
@@ -81,7 +98,7 @@ onMounted(() => {
 
    L.polyline(polylinePoints).addTo(map)
 
-   setInterval(() => simulateGPSTracking(fg, map), 10000)
+   setInterval(() => simulateGPSTracking(fg, map), 60000)
 })
 </script>
 

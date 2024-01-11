@@ -4,7 +4,8 @@ import { Head, Link } from '@inertiajs/vue3'
 import Map from '@/Components/Map.vue'
 import Data from '@/Pages/Partials/Data.vue'
 
-const { name } = defineProps({ name: String })
+const { plane } = defineProps({ plane: Object })
+const { aircraft, airline, live, flight } = plane
 </script>
 
 <template>
@@ -17,14 +18,14 @@ const { name } = defineProps({ name: String })
             <div className="text-sm breadcrumbs ml-4 mt-4 w-fit flex flex-col">
                <ul>
                   <li><Link :href="route('dashboard')">Home</Link></li>
-                  <li>{{ name }}</li>
+                  <li>{{ aircraft.registration }}</li>
                </ul>
             </div>
             <!--Data-->
             <Data />
          </section>
          <!--Map-->
-         <Map />
+         <Map :plane="live" :flight="flight" />
       </div>
    </AuthenticatedLayout>
 </template>
