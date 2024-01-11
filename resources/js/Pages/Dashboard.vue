@@ -9,8 +9,8 @@ import Data from '@/Pages/Partials/Data.vue'
    <Head title="Dashboard" />
 
    <AuthenticatedLayout>
-      <div class="flex flex-col-reverse md:flex-row grow">
-         <section class="w-2/3">
+      <div class="flex flex-col-reverse grow">
+         <section class="w-full">
             <!--Breadcrumbs-->
             <div className="text-sm breadcrumbs ml-4 mt-4 w-fit flex flex-col">
                <ul>
